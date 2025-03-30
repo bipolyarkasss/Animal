@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Laba._2_Animal.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Laba._2_Animal.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Симуляция живых существ"
+        Background="White">
+
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <TextBlock Grid.Row="0" Text="Симуляция живых существ" FontSize="24" Margin="10" HorizontalAlignment="Center" Foreground="#4DA6FF"/>
+        
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" Margin="10">
+            <Border Grid.Column="0" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Пантера" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <Button Content="Двигаться" Command="{Binding PantherMoveCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Стоять" Command="{Binding PantherStandCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Подать голос" Command="{Binding PantherVoiceCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Залезть на дерево" Command="{Binding PantherClimbTreeCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Спуститься с дерева" Command="{Binding PantherGetDownCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="1" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Собака" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <Button Content="Двигаться" Command="{Binding DogMoveCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Стоять" Command="{Binding DogStandCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Подать голос" Command="{Binding DogVoiceCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="2" BorderThickness="1" Margin="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Черепаха" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <Button Content="Двигаться" Command="{Binding TurtleMoveCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                    <Button Content="Стоять" Command="{Binding TurtleStandCommand}" HorizontalAlignment="Stretch" Margin="0,5"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        
+        <Grid Grid.Row="2" RowDefinitions="Auto,*">
+            <TextBlock Grid.Row="0" Text="Журнал событий:" FontWeight="Bold" Margin="10,5"/>
+            <Border Grid.Row="1" BorderBrush="#4DA6FF" BorderThickness="1" Margin="10">
+                <ListBox ItemsSource="{Binding LogMessages}" MaxHeight="200" Background="White"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
