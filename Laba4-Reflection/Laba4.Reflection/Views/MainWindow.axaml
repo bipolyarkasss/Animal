@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Laba4.Reflection.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="Laba4.Reflection.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Reflection Animal App">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+        <!-- Панель загрузки сборки -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10">
+            <TextBox Watermark="Путь к сборке" Text="{Binding AssemblyPath}" Width="300"/>
+            <Button Content="Загрузить" Command="{Binding LoadAssemblyCommand}"/>
+            <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Основное содержимое -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" Margin="0,10">
+            <!-- Список классов -->
+            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Доступные классы" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <ListBox ItemsSource="{Binding AvailableClasses}" 
+                             SelectedItem="{Binding SelectedClass}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Список методов -->
+            <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Доступные методы" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <ListBox ItemsSource="{Binding AvailableMethods}" 
+                             SelectedItem="{Binding SelectedMethod}"
+                             DisplayMemberBinding="{Binding Name}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Параметры метода -->
+<Border Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Padding="5">
+    <StackPanel>
+        <TextBlock Text="Параметры метода" FontWeight="Bold" Margin="0,0,0,5"/>
+        <ItemsControl ItemsSource="{Binding MethodParameters}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <TextBlock Text="{Binding Name}" Width="100"/>
+                        <TextBox Text="{Binding Value, Mode=TwoWay}" 
+                                 Width="150"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button Content="Выполнить" Command="{Binding ExecuteMethodCommand}" 
+                Margin="0,10" HorizontalAlignment="Right"/>
+        <Button Content="Сбросить" Command="{Binding ResetInstanceCommand}" 
+        Margin="0,10" HorizontalAlignment="Right"/>
+    </StackPanel>
+</Border>
+        </Grid>
+
+        <!-- Лог сообщений -->
+        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Padding="5">
+            <StackPanel>
+                <TextBlock Text="Журнал событий:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ListBox ItemsSource="{Binding LogMessages}" MaxHeight="150"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
